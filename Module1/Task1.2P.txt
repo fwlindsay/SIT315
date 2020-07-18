@@ -1,0 +1,24 @@
+const uint8_t led = 13;
+const uint8_t sensor = 2;
+int led_state = LOW;
+
+
+void setup()
+{
+  pinMode(sensor, INPUT);
+  pinMode(led, OUTPUT);
+  digitalWrite(led, led_state);
+  Serial.begin(9600);
+  attachInterrupt (digitalPinToInterrupt(sensor), myRoutine, CHANGE);
+}
+
+void loop() {
+  // nothing needed here
+}
+
+// this is the function that the interrupt will call
+void myRoutine() {
+  Serial.println("Sensor event!");
+  led_state = !led_state;
+  digitalWrite(led, led_state);
+}
